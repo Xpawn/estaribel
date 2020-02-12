@@ -1,9 +1,9 @@
 # Network
 Port 22
 AddressFamily inet
-# ListenAddress         127.0.0.1
-# ListenAddress		0.0.0.0
-# ListenAddress         ::
+# ListenAddress 127.0.0.1
+# ListenAddress 0.0.0.0
+# ListenAddress ::
 
 # Host Keys
 HostKey /etc/ssh/ssh_host_rsa_key
@@ -27,13 +27,13 @@ PermitRootLogin no
 
 IgnoreRhosts yes
 HostbasedAuthentication no
-PasswordAuthentication yes
+PasswordAuthentication no
 PermitEmptyPasswords no
 ChallengeResponseAuthentication no
 
 DenyUsers root
 DenyGroups root
-AllowGroups ssh
+AllowGroups operator
 
 UseLogin no
 UsePAM no
@@ -45,8 +45,8 @@ LoginGraceTime 16s
 MaxAuthTries 3
 MaxSessions 3
 MaxStartups 3:50:10
-ClientAliveInterval 60
-ClientAliveCountMax 5
+ClientAliveInterval 180
+ClientAliveCountMax 1
 
 # Logging
 SyslogFacility AUTH
@@ -54,7 +54,7 @@ LogLevel VERBOSE
 
 # Greeting message
 PrintLastLog yes
-Banner none
+Banner /etc/issue
 
 # Connection & Forwarding
 TCPKeepAlive yes
@@ -68,5 +68,5 @@ AcceptEnv LANG LC_*
 Subsystem sftp    /usr/lib/openssh/sftp-server -f AUTHPRIV -l INFO
 
 # Group/User settings
-Match Group ssh
-AllowTcpForwarding yes
+Match Group operator
+    AllowTcpForwarding yes
